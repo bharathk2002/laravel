@@ -50,7 +50,7 @@ class RegisterpageController
         // Attempt to log the user in
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-             return redirect()->intended('dashboard');
+            return redirect()->intended('contact');
         }
 
         // Authentication failed...
@@ -59,9 +59,6 @@ class RegisterpageController
         ]);
     }
 
-    public function dashboard()
-    {
-        return view('dashboard');
-    }
+
 
 }

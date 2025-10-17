@@ -80,13 +80,21 @@
 <body>
 
     <h1>Contact Us</h1>
-    <h3>{{ Auth::user()->name }}</h3>
-    <h3>{{ Auth::user()->email}}</h3>
-        @error('firstname')
-                <div class="error">{{ $message }}</div>
-            @enderror
+       @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
-    <form action="{{ route('dashboard') }}" method="POST">
+@if (session('success'))
+        <div class="success">{{ session('success') }}</div>
+    @endif
+
+    <form action="{{ route('contact.submit') }}" method="POST">
         @csrf
 
         <div>
@@ -101,11 +109,11 @@
         </div>
         <div>
             <label for="email">Mobile Number</label>
-            <input type="email" name="number" id="number" value="{{ old('number') }}" required>
+            <input type="text" name="number" id="number" value="{{ old('number') }}" required>
         </div>
         <div>
             <label for="email">Job Role</label>
-            <input type="email" name="role" id="role" value="{{ old('role') }}" required>
+            <input type="text" name="role" id="role" value="{{ old('role') }}" required>
         </div>
         <div>
             <label for="message">Your Message</label>
